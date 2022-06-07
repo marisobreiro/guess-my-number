@@ -1,7 +1,36 @@
-import { StyleSheet, TextInput, View } from "react-native";
-import PrimaryButton from "../components/PrimaryButton";
+import { useState } from "react";
+import { Alert, StyleSheet, TextInput, View } from "react-native";
 
-function StartGameScreen() {
+import PrimaryButton from "../components/PrimaryButton";
+import Colors from "../constants/Colors";
+
+function StartGameScreen({ onPickedNumber }) {
+
+    const [enteredNumber, setEnteredNumber] = useState('');
+
+    function numberInputHandler(enteredText) {
+        setEnteredNumber(enteredText);
+    }
+
+    function resetInputHandler() {
+        setEnteredNumber('');
+    }
+
+    function confirmInputHandler() {
+        const chooseNumber = parseInt(enteredNumber);
+
+        if (isNaN(chooseNumber) || chooseNumber <= 0 || chooseNumber > 99) {
+            Alert.alert(
+                'Número inválido!', 
+                'O número escolhido deve estar entre 1 e 99', 
+                [{ text: 'Ok', style: 'destructive', onPress: resetInputHandler }]
+            );
+            return;
+        } 
+
+        onPickedNumber(chooseNumber); 
+    }
+
     return (
         <View style={styles.inputContainer}>
             <TextInput 
@@ -10,13 +39,20 @@ function StartGameScreen() {
                 keyboardType="number-pad"
                 autoCapitalize="none"
                 autoCorrect={false}
+                value={enteredNumber}
+                onChangeText={numberInputHandler} 
             />
             <View style={styles.btnsContainer}>
                 <View style={styles.btnContainer}>
-                    <PrimaryButton btntext="Recomeçar" />
+                    <PrimaryButton 
+                        btntext="Recomeçar" 
+                        onPress={resetInputHandler}/>
                 </View>
                 <View style={styles.btnContainer}>
-                    <PrimaryButton btntext="Confirmar" />
+                    <PrimaryButton 
+                        btntext="Confirmar" 
+                        onPress={confirmInputHandler}
+                    />
                 </View>
             </View>
         </View>
@@ -28,7 +64,7 @@ export default StartGameScreen;
 const styles = StyleSheet.create({
     inputContainer: {
         alignItems: 'center',
-        backgroundColor: '#3B021F',
+        backgroundColor: Colors.inputBg,
         borderRadius: 8,
         elevation: 8,
         justifyContent: 'center',
@@ -41,9 +77,9 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.25
     },
     numberInput: {
-        borderBottomColor: '#DDB52F',
+        borderBottomColor: Colors.bgSecondary,
         borderBottomWidth: 2,
-        color: '#DDB52F',
+        color: Colors.bgSecondary,
         fontSize: 32,
         fontWeight: 'bold', 
         height: 50,
