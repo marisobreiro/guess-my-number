@@ -9,12 +9,13 @@ export default Title;
 
 const styles = StyleSheet.create({
     title: {
-        borderWidth: 2,
-        borderColor: Colors.bgSecondary,
-        color: Colors.bgSecondary,
+        // borderWidth: 2,
+        // borderColor: Colors.bgSecondary,
+        color: '#FFFFFF',
         fontSize: 18,
         fontWeight: 'bold',
         padding: 8,
-        textAlign: 'center'
+        textAlign: 'center',
+        textTransform: 'uppercase'
     }
 })
