@@ -1,6 +1,6 @@
 import { StyleSheet, Text, Pressable, View } from 'react-native'
 
-import Colors from '../constants/Colors';
+import Colors from '../../constants/Colors';
 
 function PrimaryButton({btntext, onPress}) {
 
@@ -36,7 +36,8 @@ const styles = StyleSheet.create({
     },
     btnText: {
         color: '#FFFFFF',
-        textAlign: 'center'
+        textAlign: 'center',
+        fontSize: 16
     },
     pressed: {
         opacity: 0.75

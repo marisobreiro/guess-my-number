@@ -2,8 +2,12 @@ import { Alert, StyleSheet, Text, View } from "react-native";
 import { useState, useEffect } from "react";
 
 import NumberContainer from "../components/game/NumberContainer";
-import PrimaryButton from "../components/PrimaryButton";
-import Title from "../components/Title";
+import PrimaryButton from "../components/UI/PrimaryButton";
+import Title from "../components/UI/Title";
+import Card from "../components/UI/Card";
+import CardText from "../components/UI/CardText";
+import Container from "../components/UI/Container";
+import BtnContainer from "../components/UI/BtnContainer";
 
 function generateRandomBetween(min, max, exclude) {
     const rndNum = Math.floor(Math.random() * (max - min)) + min;
@@ -55,26 +59,33 @@ function GameScreen({ userNumber, onGameOver }) {
     }
 
     return (
-        <View style={styles.screen}>
+        <Container>
             <Title titletext="Opponent's Guest" />
             <NumberContainer children={currentGuess} />
-            <View>
-                <Text>
-                    Higher or lower?
-                </Text>
-            </View>
-            <View>
-                <PrimaryButton btntext="-" onPress={nextGuessHandler.bind(this, 'lower')} />
-                <PrimaryButton btntext="+" onPress={nextGuessHandler.bind(this, 'greater')}/>
-            </View>
-        </View>
+            <Card>
+                <View style={styles.text}>
+                    <CardText cardText="Maior ou menor?"/>
+                </View>
+                <BtnContainer>
+                    <View style={styles.btnContainer}>
+                        <PrimaryButton btntext="-" onPress={nextGuessHandler.bind(this, 'lower')} />
+                    </View>
+                    <View style={styles.btnContainer}>
+                        <PrimaryButton btntext="+" onPress={nextGuessHandler.bind(this, 'greater')}/>
+                    </View>
+                </BtnContainer>
+            </Card>
+        </Container>
     )
 }
 
 export default GameScreen;
 
 const styles = StyleSheet.create({
-    screen: {
-        padding: 24
+    btnContainer: {
+        flex: 1
+    },
+    text: {
+        marginVertical: 20
     }
 })

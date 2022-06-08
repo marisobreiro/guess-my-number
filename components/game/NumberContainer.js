@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
         borderWidth: 4,
         justifyContent: 'center',
         margin: 24,
-        padding: 24
+        padding: 24 
     },
     numberText: {
         color: Colors.bgSecondary,
