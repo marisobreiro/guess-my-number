@@ -1,5 +1,6 @@
-import { Alert, StyleSheet, Text, View } from "react-native";
+import { Alert, FlatList, StyleSheet, Text, View } from "react-native";
 import { useState, useEffect } from "react";
+import { Ionicons } from '@expo/vector-icons'
 
 import NumberContainer from "../components/game/NumberContainer";
 import PrimaryButton from "../components/UI/PrimaryButton";
@@ -24,18 +25,20 @@ let maxBoundary = 100;
 
 function GameScreen({ userNumber, onGameOver }) {
 
-    const initialGuess = generateRandomBetween(
-        1, 
-        100, 
-        userNumber
-    );
-    const [currentGuess, setCurrentGuest] = useState(initialGuess); 
+    const initialGuess = generateRandomBetween(1, 100, userNumber);
+    const [currentGuess, setCurrentGuest] = useState(initialGuess);
+    const [guessRounds, setGuessRounds] = useState([initialGuess]); 
 
     useEffect(() => {
         if (currentGuess == userNumber) {
             onGameOver();
         }
     }, [currentGuess, userNumber, onGameOver]); //momentos que o app vai checar se o será game over
+
+    useEffect(() => {
+        minBoundary = 1;
+        maxBoundary = 100;
+    }, []);
 
     function nextGuessHandler(direction) {
         // direction => 'lower', 'greater''
@@ -56,6 +59,7 @@ function GameScreen({ userNumber, onGameOver }) {
         }
         const newRndNumber = generateRandomBetween(minBoundary, maxBoundary, currentGuess);
         setCurrentGuest(newRndNumber);
+        setGuessRounds(prevGuessRounds => [newRndNumber, ...prevGuessRounds]);
     }
 
     return (
@@ -68,13 +72,17 @@ function GameScreen({ userNumber, onGameOver }) {
                 </View>
                 <BtnContainer>
                     <View style={styles.btnContainer}>
-                        <PrimaryButton btntext="-" onPress={nextGuessHandler.bind(this, 'lower')} />
+                        <PrimaryButton btntext="-" onPress={nextGuessHandler.bind(this, 'lower')}>
+                        </PrimaryButton>
                     </View>
                     <View style={styles.btnContainer}>
                         <PrimaryButton btntext="+" onPress={nextGuessHandler.bind(this, 'greater')}/>
                     </View>
                 </BtnContainer>
             </Card>
+            <View>
+                {guessRounds.map(guessRounds => <Text key={guessRounds}>{guessRounds}</Text>)}
+            </View>
         </Container>
     )
 }

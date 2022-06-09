@@ -11,6 +11,7 @@ const styles = StyleSheet.create({
         borderWidth: 2,
         borderColor: 'white',
         color: '#FFFFFF',
+        fontFamily: 'open-sans-bold',
         fontSize: 18,
         fontWeight: 'bold',
         padding: 8,

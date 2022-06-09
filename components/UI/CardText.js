@@ -10,6 +10,7 @@ export default CardText;
 const styles = StyleSheet.create({
     cardText: {
         color: Colors.bgSecondary,
+        fontFamily: 'open-sans',
         fontSize: 16
     }
 })

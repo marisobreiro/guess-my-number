@@ -36,6 +36,7 @@ const styles = StyleSheet.create({
     },
     btnText: {
         color: '#FFFFFF',
+        fontFamily: 'open-sans',
         textAlign: 'center',
         fontSize: 16
     },
